@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<!--<link rel="stylesheet" type="text/css" href="../resources/views/index.css">-->
+	<link rel="stylesheet" type="text/css" href="./index.css">
+	<!-- <script type="text/javascript" src="./jquery-3.1.1.min.js"></script> -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+</head>
+<body>
+	<div class="hero">
+		<div class="form-box">
+			<div class="button-box">
+				<div id="btn"></div>
+				<button id="login_btn" type="button" class="toggle-btn" onclick="slide_login(this.id)" disabled>Login</button>
+				<button id="register_btn" type="button" class="toggle-btn" onclick="slide_register(this.id)">Register</button>
+			</div>
+			<form id="login" class="input-group tabin" method="POST">
+				<input type="text" class="input-field" placeholder="Account" name="account" required>
+				<input type="password" class="input-field" placeholder="Password" name="password" required>
+				<!-- <button type="submit" class="submit-btn" onclick="submit_fun()">Login</button> -->
+				<input type="button" id="login" value="login" class="submit-btn" onclick="submit_fun(this.id)">
+			</form>
+			<form id="register" class="input-group">
+				<input type="text" class="input-field" placeholder="Name" name="name" required>
+				<input type="text" class="input-field" placeholder="Account" name="account" required>
+				<input type="password" class="input-field" placeholder="Password" name="password" required>
+				<!-- <button type="submit" class="submit-btn" onclick="submit_fun()">Register</button> -->
+				<input type="button" id="register" value="register" class="submit-btn" onclick="submit_fun(this.id)"><br>
+			</form>
+		</div>
+	</div>
+	<script>
+		let apiurl = "./api/";
+		let login_form = document.getElementById('login');
+		let register_form = document.getElementById('register');
+		let slide_btn = document.getElementById('btn');
+		let login_btn = document.getElementById('login_btn');
+		let register_btn = document.getElementById('register_btn');
+		//document.querySelectorAll('.input-group')
+
+		function slide_register(para) {
+			login_form.style.left = "-400px";
+			register_form.style.left = "50px";
+			slide_btn.style.left = "110px";
+			login_form.classList.toggle("tabin");
+			register_form.classList.toggle("tabin");
+			//slide_btn.classList.toggle("tabin");
+			//$(this).find("input-group").children().toggleClass("tabin");
+			//.slideToggle();
+			login_btn.toggleAttribute("disabled");
+			register_btn.toggleAttribute("disabled");
+			console.log(this);
+		}
+
+		function slide_login(para) {
+			login_form.style.left = "50px";
+			register_form.style.left = "450px";
+			slide_btn.style.left = "0";
+			login_form.classList.toggle("tabin");
+			register_form.classList.toggle("tabin");
+			login_btn.toggleAttribute("disabled");
+			register_btn.toggleAttribute("disabled");
+			console.log(this);
+		}
+
+		function submit_fun(id) {
+			console.log($('form').serializeArray());
+			//$('#userData').find('.data').serialize(),
+			//console.log($('#userData').find('.input-field').serialize());
+			console.log(id);
+			$.ajax({
+				type:"POST",
+				//url: apiurl + 'login' ,
+				url: apiurl + id ,
+				data: $('form').serializeArray(),
+				statusCode:{
+					200: function (res) {
+        			//Cookies.set('token',res,{expires:7, path:''});
+        			console.log(res)
+        			alert(id+' successfully');
+        		},
+        		400: function (res) {
+        			console.log(res.responseJSON[0])
+        			alert(res.responseJSON[0]);
+        		}
+        	}
+        });
+			//console.log('login');
+			console.log(id);
+		}
+	</script>
+</body>
+</html>
