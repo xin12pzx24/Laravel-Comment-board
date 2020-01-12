@@ -19,5 +19,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 */
 Route::post('register', 'UserController@register');
 Route::get('register', function () {
-    return 'Get() of register';
+	return 'Get() of register';
 });
+Route::post('login', 'UserController@login');
+Route::post('comment', 'CommentController@comment');
+Route::get('getComments', 'CommentController@getComments');
+
+        //Route::get('getUserData', 'UserController@getUserData');
+Route::get('showComment', 'CommentController@showComment');
+Route::get('inquireComment', 'CommentController@inquireComment');
+Route::post('editComment', 'CommentController@editComment');
+Route::delete('deleteComment', 'CommentController@deleteComment');

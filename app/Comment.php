@@ -3,6 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable; 
+/*
+* use Illuminate\Notifications\Notifiable;
+* add to avoid FatalErrorException
+* Trait 'App\Notifiable' not found
+* in Comment.php line 10
+*/
 
 class Comment extends Model
 {
@@ -16,7 +23,7 @@ class Comment extends Model
      * @var array
      */
     protected $fillable = [
-        'account', 'content',
+        'account', 'title', 'content',
     ];
 
     /**

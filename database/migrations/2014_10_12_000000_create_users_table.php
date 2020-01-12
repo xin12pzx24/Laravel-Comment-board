@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             //$table->increments('id');
-            $table->string('account')->unique(); //add ->unique() for allow foreign key creation in other tables
+            $table->string('account')->primary(); //add ->unique() for allow foreign key creation in other tables
             $table->string('password');
             $table->string('name');
             $table->dateTime('created_at');
